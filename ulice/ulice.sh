@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# vypise duplicity spolu s okrsky
 tmp1=$(mktemp)
 tmp2=$(mktemp)
 trap 'rm -rf $tmp1, $tmp2' EXIT
