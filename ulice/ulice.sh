@@ -14,13 +14,13 @@ sort $tmp1 >$tmp2
 sed -r -e "s/(.*),([0-9]+)/\2 \1/" $tmp2|uniq -f 1 -D >$tmp1
 sed -r -e "s/([0-9]+) (.*)$/\2,\1/" $tmp1 >$tmp2
 # to one line
+IFS=,
 prev=""
 out=""
 echo "" > $tmp1
-cat $tmp2 | while read l
+cat $tmp2 \
+| while read ul ok
 do
-    ul="$(echo $l | cut -d , -f 1)"
-    ok=$(echo $l | cut -d , -f 2)
     if [ "$prev" = "$ul" ]
     then
         out="${out}, ${ok}"
@@ -30,4 +30,5 @@ do
         out="${ul} $ok"
     fi
 done
+# rm first 2 lines, empty
 sed -e "1,2d" $tmp1
